@@ -114,15 +114,18 @@ nav {
 
       a.article {
         color: var(--dark-gray);
-        border: solid 1px black;
+        border-top: solid 1px var(--red-maroon);
+        border-bottom: solid 1px var(--red-maroon);
         display: block;
         padding: 0.5rem 1rem;
         border-bottom: solid 1px var(--red-pale);
         transition: all 0.3s ease;
+        text-decoration: none;
       }
 
       a.article:hover {
         background: rgba(228, 32, 29, 0.096);
+      }
     }
   }
 }
