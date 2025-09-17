@@ -42,15 +42,15 @@ main {
 }
 
 :root {
-  --red: rgb(228, 33, 29);
-  --red-light: rgb(244, 98, 95);
-  --red-pale: rgb(248, 157, 155);
-  --red-dark: rgb(180, 27, 25);
-  --red-maroon: rgb(130, 19, 17);
-  --gold: rgb(255, 215, 0);
-  --cream: rgb(245, 245, 220);
-  --white: rgb(255, 255, 255);
-  --dark-gray: rgb(54, 69, 79);
+  --red: 228, 33, 29;
+  --red-light: 244, 98, 95;
+  --red-pale: 248, 157, 155;
+  --red-dark: 180, 27, 25;
+  --red-maroon: 130, 19, 17;
+  --gold: 255, 215, 0;
+  --cream: 245, 245, 220;
+  --white: 255, 255, 255;
+  --dark-gray: 54, 69, 79;
 
   --border-radius: 2em;
   --box-shadow: 0 8px 6px rgba(0, 0, 0, 0.1);

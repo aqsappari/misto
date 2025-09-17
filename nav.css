@@ -1,0 +1,47 @@
+nav {
+  position: sticky;
+  top: 0;
+  background-color: rgb(var(--red-dark));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+
+  .logoDiv {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    img {
+      height: 60px;
+      width: auto;
+    }
+
+    h3 {
+      color: rgb(var(--white));
+    }
+  }
+
+  .actionBtns {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-right: 1rem;
+
+    button {
+      background-color: rgb(var(--red));
+      color: rgb(var(--white));
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgb(var(--red-light));
+      }
+    }
+  }
+}
