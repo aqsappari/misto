@@ -50,3 +50,38 @@
     }
   }
 }
+
+.list {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 3rem;
+
+  margin-bottom: 4rem;
+
+  .listItem {
+    padding: 1.2rem 0.25rem;
+    border-top: solid 1px rgba(var(--red-maroon), 0.1);
+    border-bottom: solid 1px rgba(var(--red-maroon), 0.1);
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+
+    h4 {
+      color: rgb(var(--red-dark));
+      text-decoration: solid underline;
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgb(var(--dark-gray));
+    }
+
+    &:hover {
+      background: rgba(var(--red-pale), 0.2);
+      transform: scale(1.02);
+      box-shadow: var(--box-shadow);
+    }
+  }
+}

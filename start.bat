@@ -17,4 +17,4 @@ ECHO XAMPP services started.
 ECHO Please check the XAMPP Control Panel for status.
 
 REM Optional: Pause so you can see the output before the window closes
-pause
+pause   
