@@ -16,11 +16,17 @@
       font-size: 1rem;
       padding: 0.75em 0.5em;
       padding-left: 2.5rem;
-      background: rgba(var(--red-pale), 0.1);
+      background: rgba(var(--red-pale), 0.2);
 
       border-radius: calc(var(--border-radius) - 5px);
+      box-shadow: 0px 4px 6px rgb(var(--dark-gray), 0.1);
       border: none;
       outline: none;
+      transition: all 0.3s ease;
+
+      &:focus {
+        box-shadow: 0px 6px 6px rgb(var(--dark-gray), 0.3);
+      }
     }
 
     p {
