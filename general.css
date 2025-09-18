@@ -1,3 +1,52 @@
+/* Poppins-Thin */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+/* Poppins-ThinItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+/* Poppins-ExtraLight */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Poppins-ExtraLightItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+/* Poppins-Light */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Poppins-LightItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Poppins-Regular */
 @font-face {
   font-family: "Poppins";
   src: url("font/Poppins/Poppins-Regular.ttf") format("truetype");
@@ -5,10 +54,131 @@
   font-style: normal;
 }
 
+/* Poppins-Italic (often the same as regular italic) */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Poppins-Medium */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Poppins-MediumItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Poppins-SemiBold */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Poppins-SemiBoldItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Poppins-Bold */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Poppins-BoldItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Poppins-ExtraBold */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Poppins-ExtraBoldItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Poppins-Black */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Poppins-BlackItalic */
+@font-face {
+  font-family: "Poppins";
+  src: url("font/Poppins/Poppins-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+/* Quicksand-Light */
 @font-face {
   font-family: "Quicksand";
-  src: url("font/Quicksand/Quicksand-VariableFont_wght.ttf") format("truetype");
+  src: url("font/Quicksand/static/Quicksand-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Quicksand-Regular */
+@font-face {
+  font-family: "Quicksand";
+  src: url("font/Quicksand/static/Quicksand-Regular.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
+}
+
+/* Quicksand-Medium */
+@font-face {
+  font-family: "Quicksand";
+  src: url("font/Quicksand/static/Quicksand-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Quicksand-SemiBold */
+@font-face {
+  font-family: "Quicksand";
+  src: url("font/Quicksand/static/Quicksand-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Quicksand-Bold */
+@font-face {
+  font-family: "Quicksand";
+  src: url("font/Quicksand/static/Quicksand-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -67,39 +237,40 @@ h4,
 h5,
 h6 {
   font-family: "Quicksand", sans-serif;
-  font-weight: bold;
-  font-style: normal;
 }
 
 h1 {
   font-size: 3rem;
   line-height: 3.5rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 h2 {
   font-size: 2.5rem;
   line-height: 3rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 h3 {
   font-size: 2rem;
   line-height: 2.5rem;
-  font-weight: semi-bold;
+  font-weight: 600;
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   line-height: 2rem;
+  font-weight: 500;
 }
 
 h5 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   line-height: 1.75rem;
+  font-weight: 500;
 }
 
 h6 {
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 1.5rem;
+  font-weight: 500;
 }

@@ -107,6 +107,37 @@
         theme: "snow",
       });
 
+      // Get the Quill editor element
+      const editorContainer = document.querySelector(".ql-editor");
+
+      // Function to handle the auto-scrolling
+      function scrollToCursor() {
+        const selection = quill.getSelection();
+        if (selection) {
+          const range = selection.index;
+          const bounds = quill.getBounds(range);
+
+          // Get the container's vertical scroll position and height
+          const containerScrollTop = editorContainer.scrollTop;
+          const containerHeight = editorContainer.clientHeight;
+
+          // Calculate the position of the cursor relative to the container
+          const cursorTop = bounds.top + containerScrollTop;
+          const cursorBottom = bounds.bottom + containerScrollTop;
+
+          // If the cursor is below the visible area, scroll down
+          if (cursorBottom > containerScrollTop + containerHeight) {
+            editorContainer.scrollTop = cursorBottom - containerHeight;
+          }
+          // If the cursor is above the visible area, scroll up
+          else if (cursorTop < containerScrollTop) {
+            editorContainer.scrollTop = cursorTop;
+          }
+        }
+      }
+
+      // Attach the function to Quill's text-change event
+      quill.on("text-change", scrollToCursor);
       // --- Custom Image Handling Logic ---
       function selectLocalImage() {
         const input = document.createElement("input");
@@ -124,9 +155,9 @@
                 const range = quill.getSelection(true);
                 quill.insertEmbed(range.index, "image", imageDataUrl);
                 quill.setSelection(range.index + 1);
-                alert(
-                  "Image inserted! It will be submitted with the content as a data string."
-                );
+                //alert(
+                //  "Image inserted! It will be submitted with the content as a data string."
+                //);
               };
               reader.readAsDataURL(file);
             } catch (error) {
