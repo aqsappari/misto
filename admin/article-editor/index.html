@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor</title>
+    <!-- Include Quill's CSS -->
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../general.css" />
+    <link rel="stylesheet" href="../../nav.css" />
+    <link rel="stylesheet" href="../../font/font-icons/css/font-icons.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="logoDiv">
+        <img src="../../image/wmsu-logo.png" alt="wmsu-logo" class="logo" />
+        <h3>Help Center</h3>
+      </div>
+      <!-- <div class="actionBtns">
+        <button class="searchBtn">
+          <i class="icon-search"></i>
+        </button>
+      </div> -->
+    </nav>
+    <main>
+      <div class="container">
+        <section class="basics-section">
+          <div class="subheader">
+            <button type="button" id="backBtn">
+              <i class="icon-left-big"></i>
+            </button>
+            <h3>Editor</h3>
+          </div>
+          <form action="#" method="post">
+            <div class="input-group">
+              <label for="title-article">Title</label>
+              <input
+                type="text"
+                name="title-article"
+                id="title-article"
+                placeholder="Article Title"
+              />
+            </div>
+            <div class="input-group">
+              <label for="desc-article">Description</label>
+              <textarea name="desc-article" id="desc-article"></textarea>
+            </div>
+          </form>
+          <div class="actionBtns">
+            <button type="button" id="publishBtn">Publish</button>
+          </div>
+        </section>
+        <section class="editor-section">
+          <div class="document-container">
+            <!-- Wrap the editor in a form element -->
+            <form id="article-form" action="/submit-article" method="post">
+              <!-- The Quill editor container -->
+              <div
+                id="editor-container"
+                aria-placeholder="Type Anything..."
+              ></div>
+              <!-- Submit button -->
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Include Quill's JavaScript -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+      console.log("Screen width:", window.innerWidth + "px");
+      const docContainer = document.querySelector(".document-container");
+      const nav = document.querySelector("nav");
+      if (docContainer && nav) {
+        const newWidth = Math.max(window.innerWidth - 400, 200); // Prevents negative/too small width
+        docContainer.style.width = newWidth + "px";
+        const navHeight = nav.offsetHeight;
+        const newHeight = Math.max(window.innerHeight - navHeight, 100); // Prevents negative/too small height
+        docContainer.style.height = newHeight + "px";
+      }
+      // --- IMPORTANT: The order of script tags matters. Quill must be loaded first. ---
+
+      // Customized toolbar options
+      // Only include the features we want to keep
+      var toolbarOptions = [
+        ["bold", "italic", "underline"],
+        [{ header: [1, 2, false] }],
+        [{ align: [] }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        ["image"],
+      ];
+
+      var quill = new Quill("#editor-container", {
+        modules: {
+          toolbar: {
+            container: toolbarOptions,
+            handlers: {
+              image: selectLocalImage,
+            },
+          },
+        },
+        theme: "snow",
+      });
+
+      // --- Custom Image Handling Logic ---
+      function selectLocalImage() {
+        const input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.setAttribute("accept", "image/*");
+        input.click();
+
+        input.onchange = async () => {
+          const file = input.files[0];
+          if (file) {
+            try {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const imageDataUrl = e.target.result;
+                const range = quill.getSelection(true);
+                quill.insertEmbed(range.index, "image", imageDataUrl);
+                quill.setSelection(range.index + 1);
+                alert(
+                  "Image inserted! It will be submitted with the content as a data string."
+                );
+              };
+              reader.readAsDataURL(file);
+            } catch (error) {
+              console.error("Failed to insert image:", error);
+              alert("Error inserting image. Please try again.");
+            }
+          }
+        };
+      }
+
+      // --- Form Submission Logic (using fetch API) ---
+      document
+        .getElementById("article-form")
+        .addEventListener("submit", async function (event) {
+          // Prevent the default form submission
+          event.preventDefault();
+
+          // Get the HTML content from Quill
+          let content = quill.root.innerHTML;
+
+          // 1. Skim through content to find and upload images
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = content;
+          const images = tempDiv.querySelectorAll("img");
+
+          if (images.length > 0) {
+            alert("Uploading images first...");
+            const uploadPromises = Array.from(images).map((img) => {
+              const src = img.getAttribute("src");
+              // Check if the image source is a Base64 data URL
+              if (src && src.startsWith("data:")) {
+                return uploadImageToServer(src).then((newUrl) => {
+                  // Replace the old Base64 URL with the new server URL
+                  img.setAttribute("src", newUrl);
+                });
+              }
+              return Promise.resolve(); // Return a resolved promise for non-Base64 images
+            });
+
+            try {
+              await Promise.all(uploadPromises);
+              content = tempDiv.innerHTML; // Get the updated HTML with new URLs
+              console.log(
+                "All images uploaded and content updated with new URLs."
+              );
+            } catch (error) {
+              console.error("Error during image upload phase:", error);
+              alert(
+                "An error occurred while uploading images. Submission aborted."
+              );
+              return; // Stop the submission process
+            }
+          } else {
+            console.log("No images to upload. Submitting content directly.");
+          }
+
+          // 2. Submit the content (now with new image URLs)
+          const data = {
+            articleContent: content,
+          };
+
+          console.log("Submitting the final content:", data);
+
+          try {
+            const response = await fetch("/submit-article", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+              const result = await response.json();
+              alert(
+                "Content submitted successfully! Server response: " +
+                  JSON.stringify(result)
+              );
+              console.log("Server response:", result);
+            } else {
+              alert("Submission failed. Server returned an error.");
+              console.error("Submission failed with status:", response.status);
+            }
+          } catch (error) {
+            alert("An error occurred during submission.");
+            console.error("Submission error:", error);
+          }
+        });
+
+      /**
+       * IMPORTANT: This function now simulates an image upload to the server.
+       * In a real application, you would make an API call here.
+       * It accepts a Base64 string and returns a Promise that resolves with a public URL.
+       * @param {string} base64Data - The Base64 string of the image.
+       * @returns {Promise<string>} - A promise that resolves with the public URL of the uploaded image.
+       */
+      async function uploadImageToServer(base64Data) {
+        console.log("Simulating Base64 upload to server...");
+
+        // --- REAL-WORLD IMPLEMENTATION: ---
+        // const response = await fetch('/api/upload-image-base64', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ image: base64Data })
+        // });
+        // if (!response.ok) throw new Error('Image upload failed.');
+        // const result = await response.json();
+        // return result.imageUrl; // Assuming API returns { imageUrl: '...' }
+
+        // --- SIMULATED IMPLEMENTATION: ---
+        // For this demo, we'll just return a placeholder URL.
+        // A real server would save the file and return its public URL.
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const randomId = Math.random().toString(36).substr(2, 9);
+            const placeholderUrl = `https://placehold.co/400x250/50C878/FFFFFF?text=Uploaded+Image`;
+            console.log(`Simulated server response: ${placeholderUrl}`);
+            resolve(placeholderUrl);
+          }, 1500); // Simulate network delay
+        });
+      }
+    </script>
+  </body>
+</html>
